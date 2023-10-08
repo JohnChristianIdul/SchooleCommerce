@@ -9,7 +9,7 @@ from Merchant.models import Merchant
 class Cart(models.Model):
     cart_ID = models.AutoField(primary_key=True, null=False)
     customer_ID = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    total_amount = models.FloatField()
+    partial_total_amount = models.FloatField() #without shipping fee
 
     def add_total_amount(self):
         # Get all related CartProductList objects
@@ -23,7 +23,7 @@ class Cart(models.Model):
             total_amount += cart_product.subtotal
 
         # Update the product_total_amount field with the calculated total amount
-        self.total_amount = total_amount
+        self.partial_total_amount = total_amount
         self.save()
 
 
@@ -47,10 +47,17 @@ class ProductQuantity(models.Model):
 
 class CartProductList(models.Model):
     objects = models.Manager()
-    cart_product_list_ID = models.AutoField(primary_key=True)
     cart_ID = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product_ID = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     product_quantity = models.ForeignKey(ProductQuantity, on_delete=models.CASCADE)
+    total_quantity = models.IntegerField(null=False)
+    cart_subtotal = models.FloatField(null=False)
+
+    def cart_sub_total(self):
+        #get subtotal from product quantity and assign
+        prod_total = ProductQuantity.object.filter(product_quantity=self)
+
+        self.cart_subtotal += prod_total
 
 
 class Checkout(models.Model):
@@ -58,14 +65,14 @@ class Checkout(models.Model):
     check_out_ID = models.AutoField(primary_key=True)
     customer_ID = models.ForeignKey(Customer, on_delete=models.CASCADE)
     merchant_ID = models.ForeignKey(Merchant, on_delete=models.CASCADE)
-    subtotal = models.FloatField(null=False)
+    total = models.FloatField(null=False)
     payment_method = models.CharField(max_length=1, choices=payMethod)
     receive_by_date = models.DateTimeField()
 
     def total_amount(self):
         cart_product_list = CartProductList.objects.filter(checkout=self)
         total = sum(cart.subtotal for cart in cart_product_list)
-        self.subtotal = total
+        self.total = total # + shipping fee
 
     def set_receive_by_date(self):
         # Calculate the receive_by_date as current time + 1 week
