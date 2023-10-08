@@ -1,8 +1,9 @@
 from django.db import models
+from Person.models import Person
 
 
 # Create your models here.
-class Customer(Person.Person):
+class Customer(Person):
     customer_ID = models.AutoField(primary_key=True, null=False)
     school_admin_ID = models.ForeignKey(SchoolAdmin.SchoolAdmin, on_delete=models.CASCADE)
     customer_wallet = models.FloatField(default=0.0)
@@ -11,6 +12,7 @@ class Customer(Person.Person):
 
 class Report(models.Model):
     pass
+
 
 
 
