@@ -1,8 +1,9 @@
 from django.db import models
+from Person.models import Person
 
 
 # Create your models here.
-class DeliveryPersonnel(Person.Person):
+class DeliveryPersonnel(Person):
     pass
 
 

@@ -1,8 +1,9 @@
 from django.db import models
+from Person.models import Person
 
 
 # Create your models here.
-class SchoolAdmin(Person.Person):
+class SchoolAdmin(Person):
     pass
 
 

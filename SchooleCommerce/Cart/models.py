@@ -6,6 +6,10 @@ class Cart(models.Model):
     pass
 
 
+class ProductQuantity(models.Model):
+    pass
+
+
 class CartProductList(models.Model):
     pass
 
