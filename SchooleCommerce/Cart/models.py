@@ -29,7 +29,7 @@ class Cart(models.Model):
 
 class ProductQuantity(models.Model):
     objects = models.Manager()
-    product_ID = models.ForeignKey(Product.Product, on_delete=models.CASCADE)
+    product_ID = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False)
     product_subtotal = models.FloatField(null=False, default=0.0)  # Field to store the subtotal
 
@@ -49,7 +49,7 @@ class ProductQuantity(models.Model):
 class CartProductList(models.Model):
     objects = models.Manager()
     cart_ID = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product_ID = models.ForeignKey(Product, on_delete=models.SET_NULL)
+    product_ID = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     product_quantity_ID = models.ForeignKey(ProductQuantity, on_delete=models.CASCADE)
     total_quantity = models.IntegerField(null=False)
     cart_subtotal = models.FloatField(null=False)
