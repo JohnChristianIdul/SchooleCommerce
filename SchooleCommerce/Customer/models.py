@@ -11,6 +11,9 @@ class Customer(Person):
     customer_wallet = models.FloatField(default=0.0)
     transaction_history = models.ManyToManyField(Transactions)
 
+    def __str__(self):
+        return self.customer_ID
+
 
 class Report(models.Model):
     pass

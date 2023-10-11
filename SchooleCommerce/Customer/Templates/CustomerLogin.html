@@ -1,10 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <style>
+        .container {
+            text-align: center;
+        }
+
+        .form-group {
+            text-align: center;
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            width: 100px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-$END$
+    <div class="container" align="center">
+        <h1>Customer Login Form</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                <input type="text" name="{{ form.username.name }}" style="text-align: center;">
+            </div>
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                <input type="password" name="{{ form.password.name }}" style="text-align: center;">
+            </div>
+            <button type="submit" class="button">Login</button>
+        </form>
+    </div>
 </body>
 </html>

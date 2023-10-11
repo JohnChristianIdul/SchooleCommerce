@@ -2,13 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration Form</title>
+    <style>
+        .container {
+            display: grid;
+            justify-items: center;
+        }
+
+        .button {
+            width: 100px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <form>
-        {{form.as_p}}
-        <input type="submit">
-    </form>
-
+    <div class="container" align="center">
+        <h1>Customer Registration Form</h1>
+        <form class="form" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="button">Register</button>
+        </form>
+    </div>
 </body>
 </html>

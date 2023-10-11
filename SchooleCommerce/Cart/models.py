@@ -26,6 +26,9 @@ class Cart(models.Model):
         self.partial_total_amount = total_amount
         self.save()
 
+    def __str__(self):
+        return self.cart_ID
+
 
 class ProductQuantity(models.Model):
     objects = models.Manager()
@@ -90,6 +93,9 @@ class Checkout(models.Model):
     def save(self, *args, **kwargs):
         self.set_receive_by_date()
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.check_out_ID
 
 
 class Order(models.Model):
