@@ -30,7 +30,7 @@ class Checkout(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     total_amount = models.FloatField()
     payment_method = models.CharField(max_length=20, choices=payment_method_choices)
-    receive_by_date = models.DateField(default=lambda: datetime.now() + timedelta(days=7))
+    receive_by_date = models.DateField(default=datetime.now() + timedelta(days=7))
     order_date = models.DateField(datetime.now())
     confirm_order = models.BooleanField(default=False)
 
