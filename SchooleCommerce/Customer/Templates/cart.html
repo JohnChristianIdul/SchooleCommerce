@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cart</title>
+    <style>
+        ul.navbar {
+            list-style-type: none;
+            margin-left: 15em;
+            padding-left: 10em;
+            padding: 1.5em;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        li.nav-item {
+            display: inline; /* Display the list items inline */
+            padding-right: 3.5em;
+        }
+
+        li.nav-item a {
+            display: inline; /* Display the links inline */
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li.nav-item a:hover {
+            border-radius: 1.5em;
+            padding: 15px;
+            font-size: 17px;
+            color: white;
+            background-color: #004a8e; /* Background color for the links on hover */
+        }
+
+        .nav-link.active {
+            border-radius: 1.5em;
+            padding: 15px;
+            color: white;
+            background-color: #004a8e;
+        }
+
+        .search-bar {
+            float: right;
+            margin-right: 18em;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .search-bar input[type="text"] {
+            border-radius: 1.5em; /* Add border radius to the input field */
+            padding: 12px; /* Increase padding for a larger size */
+            width: 230px; /* Adjust the width as needed */
+        }
+
+        .search-bar .button {
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 1.5em;
+            padding: 10px 20px; /* Increase padding for a larger size */
+            background-color: #004a8e;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .content {
+            padding-left: 5em;
+            padding-top: 2em;
+            font-size: 24px;
+            background-color: #E8ECEF;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h3.underline {
+            margin-left: 7.5em;
+            padding-right: 150px;
+            padding-left: 10px;
+            border-bottom: 4px solid#002073; /* You can adjust the line color and thickness */
+            display: inline; /* This is to make the line only as wide as the text content */
+        }
+
+        .title-cart {
+            display: flex;
+            justify-content: space-between; /* Aligns items to the start and end of the container */
+            align-items: center; /* Centers items vertically */
+        }
+
+        .myPurchase {
+            display: flex;
+            align-items: center; /* Aligns items vertically */
+        }
+
+        .myPurchase p {
+
+        }
+
+        .myPurchase img {
+            margin-right: 10px; /* Adds some space between the image and the text */
+            height: 50px;
+            width: 50px;
+        }
+
+        .totalPrice{
+            font-weight: bold;
+            font-size: 24px;
+            margin-left: 110px;
+            margin-top: -8px;
+        }
+
+        .checkoutButton{
+            padding-bottom: 20px;
+            color: white;
+            background-color: #002073;
+            border-radius: 30px;
+            width: fit-content;
+            padding: 10px;
+            margin-left: 70%;
+        }
+    </style>
+</head>
+<body>
+    <ul class="navbar">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">HOME</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'cart' %}">CART</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'checkout'%}">CHECKOUT</a></li>
+    </ul>
+    <h1>Your Shopping Cart</h1>
+
+    {% if cart_product_list %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_product_list %}
+                    <tr>
+                        <td>{{ item.0 }}</td>
+                        <td>${{ item.1 }}</td>
+                        <td>{{ item.2 }}</td>
+                        <td>${{ item.3 }}</td>
+                        <td>
+                            <form action="{% url 'remove_item' %}" method="post" name="removeitem">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ item.4 }}">
+                                <input type="submit" value="Remove">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p>Total: ${{ total_amount }}</p>
+
+        <form action="{% url 'checkout' %}" method="post" name="checkoutitem">
+            {% csrf_token %}
+            <input type="submit" value="Checkout">
+        </form>
+
+    {% else %}
+        <p>Your shopping cart is empty.</p>
+    {% endif %}
+
+</body>
+</html>

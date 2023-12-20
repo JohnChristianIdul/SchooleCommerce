@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <!-- Add your styles or include CSS files here -->
+</head>
+<body>
+
+    <h1>Checkout</h1>
+
+    {% if checkout_data %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in checkout_data %}
+                    <tr>
+                        <td>{{ item.0 }}</td>
+                        <td>{{ item.1 }}</td>
+                        <td>{{ item.2 }}</td>
+                        <td>{{ item.3 }}</td>
+                        <td>{{ item.4 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No items in the checkout</p>
+    {% endif %}
+
+</body>
+</html>

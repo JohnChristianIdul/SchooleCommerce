@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var currentSection = window.location.hash;
+            if (currentSection === "") {
+                document.querySelector(".nav-link").classList.add("active");
+            }
+        });
+
+    </script>
+    <style>
+        ul.navbar {
+            list-style-type: none;
+            margin-left: 15em;
+            padding-left: 10em;
+            padding: 1.5em;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        li.nav-item {
+            display: inline; /* Display the list items inline */
+            padding-right: 3.5em;
+        }
+
+        li.nav-item a {
+            display: inline; /* Display the links inline */
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li.nav-item a:hover {
+            border-radius: 1.5em;
+            padding: 15px;
+            font-size: 17px;
+            color: white;
+            background-color: #004a8e; /* Background color for the links on hover */
+        }
+
+        .nav-link.active {
+            border-radius: 1.5em;
+            padding: 15px;
+            color: white;
+            background-color: #004a8e;
+        }
+
+        .search-bar {
+            float: right;
+            margin-right: 18em;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .search-bar input[type="text"] {
+            border-radius: 1.5em; /* Add border radius to the input field */
+            padding: 12px; /* Increase padding for a larger size */
+            width: 230px; /* Adjust the width as needed */
+        }
+
+        .search-bar .button {
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 1.5em;
+            padding: 10px 20px; /* Increase padding for a larger size */
+            background-color: #004a8e;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .content {
+            /* flex-wrap: wrap; */
+            justify-content: space-around;
+            display: list-item;
+            padding-left: 5em;
+            /* padding-top: 2em; */
+            font-size: 24px;
+            background-color: #E8ECEF;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .item-container {
+            flex-wrap: wrap;
+            background-color: #004B8E;
+            color: white;
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            width: 300px;
+            height: 400px;
+        }
+
+        .product {
+            padding-top: 1em;
+            padding-left: 1em;
+            display: flex;
+            background-color: #E8ECEF;
+            background-color: transparent;
+        }
+
+        .product-item {
+            flex-wrap: wrap;
+            background-color: #002073;
+            color: white;
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            width: 400px;
+        }
+
+        .product-item img {
+            max-width: 400px;
+        }
+
+        p.category {
+            font-size: 18px;
+            padding-left: 1em;
+            margin-top: 0.7em;
+        }
+
+        p.price {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 1em;
+            padding-left: 1em;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .back{
+            text-align: left;
+            color: black;
+            font-size: 18px;
+        }
+
+        h2.product-name {
+            padding-left: 1em;
+        }
+
+        h2.prod-rev {
+            padding-top: 2em;
+            margin-left: 1em;
+            border-bottom: 4px solid#002073; /* You can adjust the line color and thickness */
+            display: inline; /* This is to make the line only as wide as the text content */
+            padding-right: 100px;
+        }
+
+        p.inclusions {
+            font-size: 18px;
+            padding-left: 2em;
+            margin-top: 1em;
+        }
+
+        .pantay {
+            display: inline;
+            flex-direction: row;
+        }
+
+        p.Rating {
+            font-size: 15px;
+            font-weight: bold;
+            padding-left: 2.5em;
+            margin-top: -2em;
+            margin-bottom: 2em;
+        }
+
+        .add-to-cart {
+            border-radius: 20px;
+            background-color: #002073;
+            color: white;
+            margin-left: 2em;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-weight: bold;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul class="navbar">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">HOME</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'cart'%}">CART</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'checkout'%}">CHECKOUT</a></li>
+
+    </ul>
+    <div class="content">
+        <a class="back" href="{% url 'home' %}">Back</a>
+            {% if product_data %}
+                {% for product in product_data %}
+                    <div>
+                        <div class="pantay">
+                            <h2 class="product-name">{{ product.1 }}</h2>
+                            <p class="Rating">Rating: {{ product.4 }} / 5</p>
+                        </div>
+                        <p class="Description">{{ product.2 }}</p>
+                        <p class="price">₱{{ product.3 }}</p>
+                    </div>
+                {% endfor %}
+            {% elif product_data == None %}
+                <p>No data found for product ID {{ product_id }}</p>
+            {% else %}
+                <p>No data available for the specified product ID.</p>
+            {% endif %}
+        <br>
+        <br>
+        <div class="product-review">
+            <h2 class="prod-rev">Product Review</h2>
+            {% if product_reviews %}
+                {% for review in product_reviews %}
+                    <div class="review">
+                        <p style="font-weight: bold; font-size: 20px; margin-left: 1.7em; margin-top: 2em;">
+                            {{ review.0 }}
+                        </p>
+                        <p style="font-size: 17px; font-weight: bold; margin-left: 2em; margin-top: -1em;">
+                            Rating: {{ review.5 }} / 5
+                        </p>
+                        <p style="color: #004B8E; font-size: 17px; margin-top: -1em; margin-left: 2em;">
+                            {{ review.3 }}
+                        </p>
+                        <p style="margin-left: 1.4em; border-bottom: 4px #002073; display: inline; padding-right: 100px;">
+                            {{ review.4 }}
+                        </p>
+                        <br>
+                        <br>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No reviews available for this product.</p>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" value="Add to Cart" class="add-to-cart">
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
+

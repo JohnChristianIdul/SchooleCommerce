@@ -1,0 +1,12 @@
+<html>
+    <h2>Login</h2>
+    <form method="post">
+      {% csrf_token %}
+      <pre>
+        <input type="text" name="Username" placeholder="Input username">
+        <input type="password" name="Password" placeholder="Input password">
+        <input type="submit" name="btnLogin" value="Login">
+        <a href="{% url 'signup' %}">Register</a>{{msg}}
+      </pre>
+  </form>
+</html>

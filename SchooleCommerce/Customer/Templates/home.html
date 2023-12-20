@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var currentSection = window.location.hash;
+            if (currentSection === "home.html" ) {
+                document.querySelector(".nav-link").classList.add("active");
+            }
+        });
+
+    </script>
+    <style>
+        ul.navbar {
+            list-style-type: none;
+            margin-left: 15em;
+            padding-left: 10em;
+            padding: 1.5em;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        li.nav-item {
+            display: inline; /* Display the list items inline */
+            padding-right: 3.5em;
+        }
+
+        li.nav-item a {
+            display: inline; /* Display the links inline */
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li.nav-item a:hover {
+            border-radius: 1.5em;
+            padding: 15px;
+            font-size: 17px;
+            color: white;
+            background-color: #004a8e; /* Background color for the links on hover */
+        }
+
+        .nav-link.active {
+            border-radius: 1.5em;
+            padding: 15px;
+            color: white;
+            background-color: #004a8e;
+        }
+
+        .search-bar {
+            float: right;
+            margin-right: 18em;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .search-bar input[type="text"] {
+            border-radius: 1.5em; /* Add border radius to the input field */
+            padding: 12px; /* Increase padding for a larger size */
+            width: 230px; /* Adjust the width as needed */
+        }
+
+        .search-bar .button {
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 1.5em;
+            padding: 10px 20px; /* Increase padding for a larger size */
+            background-color: #004a8e;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .content {
+            flex-wrap: wrap;
+            justify-content: space-around;
+            display: list-item;
+            padding-left: 5em;
+            padding-top: 2em;
+            font-size: 24px;
+            background-color: #E8ECEF;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h3.underline {
+            border-bottom: 4px solid#002073; /* You can adjust the line color and thickness */
+            display: inline; /* This is to make the line only as wide as the text content */
+        }
+
+
+        .product {
+            display: flex;
+            background-color: #E8ECEF;
+            overflow-x: auto;
+            background-color: transparent;
+        }
+
+        .product-item {
+            flex-wrap: wrap;
+            background-color: #004B8E;
+            color: white;
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            width: 300px;
+        }
+
+        .product-item img {
+            max-width: 100%;
+        }
+
+        .product-item h2 {
+            font-size: 18px;
+        }
+
+        .product-item p {
+            font-size: 14px;
+        }
+
+        p.price {
+            font-size: 24px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        table {
+            width: 80%; /* Adjust the width as needed */
+            margin: auto; /* Center-align the table */
+            border-collapse: collapse; /* Optional: Collapse borders */
+            margin-top: 20px; /* Adjust the margin as needed */
+            table-layout: fixed; /* Use fixed table layout */
+        }
+
+        th, td {
+            text-align: left;
+            padding: 15px; /* Adjust the padding as needed */
+            border: 1px solid #004B8E; /* Border color */
+        }
+
+        th {
+            background-color: #004B8E; /* Header background color */
+            color: white; /* Header text color */
+        }
+
+        td {
+            background-color: #E8ECEF; /* Cell background color */
+            width: 33.33%; /* Evenly distribute the space among columns */
+        }
+        tr.clickable-row {
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        tr.clickable-row:hover {
+            background-color: #ADD8E6;
+        }
+    </style>
+  </head>
+  <body>
+    <ul class="navbar">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home'%}">HOME</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'cart'%}">CART</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'checkout'%}">CHECKOUT</a></li>
+
+    </ul>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr class="clickable-row" onclick="window.location='{% url 'item' product.id %}'">
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+  <form>
+
+  </form>
+  </body>
+</html>
