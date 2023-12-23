@@ -5,6 +5,7 @@ from Transaction.models import Transactions
 
 class Merchant(Person):
     merchant_ID = models.BigAutoField(primary_key=True)
+    store_name = models.CharField(max_length=200)
     verification_status = models.BooleanField(default=False)
     merchant_wallet = models.FloatField(default=0)
     transaction_history = models.ManyToManyField('Transaction.Transactions', related_name='merchant_history')

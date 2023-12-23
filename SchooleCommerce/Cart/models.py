@@ -27,6 +27,7 @@ class Checkout(models.Model):
 
     checkout_ID = models.AutoField(primary_key=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     total_amount = models.FloatField()
     payment_method = models.CharField(max_length=20, choices=payment_method_choices)
