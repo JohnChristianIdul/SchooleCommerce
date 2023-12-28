@@ -1,0 +1,23 @@
+<!-- courier_order_form.html in your app templates directory -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courier Order Form</title>
+    <!-- Add any additional styles or links you may need -->
+</head>
+<body>
+    <div class="container">
+        <h2>Courier Order Form</h2>
+        <form method="post" action="{% url 'add-delivery' %}">
+            {% csrf_token %}
+
+            <!-- Display form fields -->
+            {{ form.as_p }}
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,3 +1,4 @@
+
 from django.db import models
 from Product.models import Product
 from Customer.models import Customer
@@ -15,7 +16,7 @@ class Cart(models.Model):
     subtotal = models.FloatField()
 
     def __str__(self):
-        return f"Cart {self.cart_ID}"
+        return f"Cart {self.cart_ID}, {self.customer}"
 
 
 class Checkout(models.Model):
@@ -36,7 +37,7 @@ class Checkout(models.Model):
     confirm_order = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Checkout {self.checkout_ID}"
+        return f"{self.checkout_ID}"
 
 
 class Order(models.Model):
@@ -58,5 +59,4 @@ class OrderStatus(models.Model):
     order_status = models.CharField(max_length=30, choices=choices)
 
     def __str__(self):
-        return f'{self.order_status_ID}'
-
+        return f'{self.order_status_ID}, {self.order}'

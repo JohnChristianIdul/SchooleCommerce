@@ -1,0 +1,60 @@
+<!-- cart_checkouts.html in your app templates directory -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Checkouts</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Orders</h1>
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Checkout ID</th>
+                    <th>Total Amount</th>
+                    <th>Payment Method</th>
+                    <th>Receive By Date</th>
+                    <th>Order Date</th>
+                    <th>Customer ID</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Display cart checkout data in the table -->
+                {% for checkout in cart_checkouts %}
+                    <tr>
+                        <td>{{ checkout.0}}</td>
+                        <td>{{ checkout.1 }}</td>
+                        <td>{{ checkout.2 }}</td>
+                        <td>{{ checkout.3 }}</td>
+                        <td>{{ checkout.4 }}</td>
+                        <td>{{ checkout.5 }}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+
+</body>
+</html>

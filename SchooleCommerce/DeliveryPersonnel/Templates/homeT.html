@@ -1,0 +1,106 @@
+<!-- homeT.html in your app templates directory -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courier Home</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 70%;
+            height: 80vh; /* 80% of the viewport height */
+            margin: 10vh auto; /* Center the container vertically */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #0D6EFD;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            margin-top: 20px;
+        }
+
+        main h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ personnel_name }}</h1>
+            <h2>Bit Express</h2>
+        </header>
+
+        <main>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <h2>Delivery Personnel's</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>DP ID</th>
+                        <th>Name</th>
+                        <th>Contact Number</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Display delivery personnel data in the table -->
+                    {% for personnel in delivery_personnel_data %}
+                        <tr>
+                            <td>{{ personnel.delivery_personnel_ID }}</td>
+                            <td>{{ personnel.name }}</td>
+                            <td>{{ personnel.contact_number }}</td>
+                            <td>{{ personnel.email }}</td>
+                            <td>{{ personnel.address }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Button to open courierorderdp.html -->
+            <a href="{% url 'add-delivery' %}" class="button">Add Delivery</a>
+        </main>
+    </div>
+</body>
+</html>

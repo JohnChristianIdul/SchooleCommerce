@@ -1,31 +1,33 @@
 from django.db import models
 from Person.models import Person
-from Cart.models import Order
-
+from Cart.models import Checkout
+from Customer.models import Customer
 
 # Create your models here.
 class DeliveryPersonnel(Person):
     delivery_personnel_ID = models.BigAutoField(primary_key=True)
-    order = models.ManyToManyField(Order)
-    choices = [("Out for Delivery", "Out for Delivery"),
-               ("Attempt Delivery", "Attempt Delivery"),
-               ("Failed Delivery", "Failed Delivery"),
-               ("Returned", "Returned"),
-               ("Delayed", "Delayed"),
-               ("Delivered", "Delivered")]
-    delivery_status = models.CharField(max_length=30, choices=choices)
 
     def __str__(self):
-        return f"{self.delivery_personnel_id}"
+        return f"{self.delivery_personnel_ID}"
 
 
-class Courier(models.Model):
+class Courier(Person):
     courier_ID = models.BigAutoField(primary_key=True)
-    delivery_personnel = models.ForeignKey(DeliveryPersonnel, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    delivery_date = models.DateField()
-    commission = models.FloatField(default=500.0)
+    commission = models.FloatField(default=50.0)
 
     def __str__(self):
-        return f"{self.courier_ID}"
+        return f"{self.name}"
+
+
+class CourierOrderDp(models.Model):
+    courier_ID = models.ManyToManyField(Courier)
+    delivery_personnel_ID = models.ForeignKey(DeliveryPersonnel, on_delete=models.CASCADE)
+    order_ID = models.ForeignKey(Checkout, on_delete=models.CASCADE)
+    est_delivery_date = models.DateField()
+    date_delivered = models.DateField(blank=True, null=True)
+    delivery_status = models.IntegerField(default=0)
+
+
+    def __str__(self):
+        return f"{self.delivery_personnel_ID}"
 

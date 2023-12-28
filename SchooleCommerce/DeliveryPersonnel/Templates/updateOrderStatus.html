@@ -1,0 +1,66 @@
+<!-- updateorderstatus.html in your app templates directory -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/registrations/registration-7/assets/css/registration-7.css">
+    <title>Update Order Status</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 50%;
+            margin: 10vh auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        input, select {
+            margin-bottom: 15px;
+            padding: 8px;
+        }
+
+        button {
+            background-color: #0D6EFD;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Update Order Status</h2>
+        <form method="post" action="{% url 'update-ds' order_id=order_id %}">
+            {% csrf_token %}
+            <label for="delivery_status">Delivery Status:</label>
+            <select id="delivery_status" name="delivery_status">
+                <option value="1">Delivered</option>
+                <option value="0">Not Delivered</option>
+            </select>
+
+            <!-- Add Date Delivered field -->
+            <label for="date_delivered">Date Delivered:</label>
+            <input type="date" id="date_delivered" name="date_delivered">
+
+            <button type="submit">Update Status</button>
+        </form>
+    </div>
+</body>
+</html>
