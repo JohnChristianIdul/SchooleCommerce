@@ -1,0 +1,101 @@
+<!-- homeD.html in your app templates directory -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/registrations/registration-7/assets/css/registration-7.css">
+    <title>D-Home</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 70%;
+            height: 80vh; /* 80% of the viewport height */
+            margin: 10vh auto; /* Center the container vertically */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #0D6EFD;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            margin-top: 20px;
+        }
+
+        main h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <main>
+
+            <h2>Orders to deliver:</h2>
+            <a href="{% url 't-home' %}" class="link-primary text-decoration-none">Go Back</a>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Delivery Date</th>
+                        <th>Date Delivered</th>
+                        <th>Order Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Display delivery orders data in the table -->
+                    <!-- Display delivery orders data in the table -->
+                    {% if delivery_orders_data %}
+                        {% for order in delivery_orders_data %}
+                            <tr>
+                                <td>{{ order.order_ID }}</td>
+                                <td>{{ order.est_delivery_date }}</td>
+                                <td>{{ order.date_delivered }}</td>
+                                <td>{{ order.delivery_status }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="4">No deliveries to display</td>
+                        </tr>
+                    {% endif %}
+
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>
