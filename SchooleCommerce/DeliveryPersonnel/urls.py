@@ -11,4 +11,8 @@ urlpatterns = [
     path('order-details/', get_all_cart_checkouts, name='order-details'),
     path('update-ds/<int:order_id>/', update_delivery_status, name='update-ds'),
     path('add-delivery/', addDpOrder, name='add-delivery'),
+    path('t-home/<int:delivery_personnel_id>/', Thome.as_view(), name='t-home-with-id'),
+    path('courierDelivery/<int:delivery_personnel_id>/', CourierDelivery.as_view(), name='courier-delivery'),
+    path('delete-delivery/<int:delivery_personnel_id>/', DeleteDeliveryPersonnel.as_view(), name='delete-delivery'),
+
 ]
