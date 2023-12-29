@@ -265,6 +265,8 @@ class Thome(View):
 
 
 
+
+
 # def courier_order_dp(request):
 #     if request.method == 'POST':
 #         form = CourierOrderDpForm(request.POST)
@@ -367,6 +369,47 @@ def addDpOrder(request):
     return render(request, 'addDelivery.html', {'form': form})
 
 
-def getDelivery(request):
+class CourierDelivery(View):
+    template_name = 'courierDelivery.html'
 
-    return render(request, 'delivery.html', {'form': form})
+    def get(self, request, delivery_personnel_id):
+        # Initialize delivery orders data
+        delivery_orders_data = []
+
+        try:
+            with connections['default'].cursor() as cursor:
+                # Call the GetDeliveryOrders stored procedure
+                args = [delivery_personnel_id]
+                cursor.callproc('GetDeliveryOrders', args)
+
+                # Fetch the results
+                delivery_orders_result = cursor.fetchall()
+
+                # Prepare the delivery orders data
+                for row in delivery_orders_result:
+                    delivery_orders_data.append({
+                        'order_ID': row[0],
+                        'est_delivery_date': row[1],
+                        'date_delivered': row[2],
+                        'delivery_status': row[3],
+                    })
+
+        except connections['default'].DatabaseError as e:
+            print(f"Database error occurred: {e}")
+
+        context = {'delivery_orders_data': delivery_orders_data}
+        return render(request, self.template_name, context)
+
+
+class DeleteDeliveryPersonnel(View):
+    def post(self, request, delivery_personnel_id):
+        try:
+            with connections['default'].cursor() as cursor:
+                # Call the DeleteDeliveryPersonnel stored procedure
+                args = [delivery_personnel_id]
+                cursor.callproc('DeleteDeliveryPersonnel', args)
+        except connections['default'].DatabaseError as e:
+            print(f"Database error occurred: {e}")
+
+        # Redirect back to the courier delivery page or any other appropriate page
+        return redirect('t-home')
