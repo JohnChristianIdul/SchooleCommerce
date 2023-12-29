@@ -74,29 +74,42 @@
                 </ul>
             {% endif %}
             <h2>Delivery Personnel's</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>DP ID</th>
-                        <th>Name</th>
-                        <th>Contact Number</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                    </tr>
-                </thead>
-                <tbody>
+
                     <!-- Display delivery personnel data in the table -->
-                    {% for personnel in delivery_personnel_data %}
-                        <tr>
-                            <td>{{ personnel.delivery_personnel_ID }}</td>
-                            <td>{{ personnel.name }}</td>
-                            <td>{{ personnel.contact_number }}</td>
-                            <td>{{ personnel.email }}</td>
-                            <td>{{ personnel.address }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    <!-- Display delivery personnel data in the table -->
+                {% if delivery_personnel_data %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Delivery Personnel ID</th>
+                                <th>Name</th>
+                                <th>Contact Number</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for personnel in delivery_personnel_data %}
+                                <tr>
+                                    <td><a href="{% url 'courier-delivery' delivery_personnel_id=personnel.delivery_personnel_ID %}">{{ personnel.delivery_personnel_ID }}</a></td>
+                                    <td>{{ personnel.name }}</td>
+                                    <td>{{ personnel.contact_number }}</td>
+                                    <td>{{ personnel.email }}</td>
+                                    <td>{{ personnel.address }}</td>
+                                    <td>
+                                        <form method="post" action="{% url 'delete-delivery' personnel.delivery_personnel_ID %}">
+                                            {% csrf_token %}
+                                            <input type="submit" value="Delete">
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No delivery personnel to display</p>
+                {% endif %}
 
             <!-- Button to open courierorderdp.html -->
             <a href="{% url 'add-delivery' %}" class="button">Add Delivery</a>
