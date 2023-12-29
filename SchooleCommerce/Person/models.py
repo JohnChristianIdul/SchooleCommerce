@@ -5,7 +5,9 @@ from django.db import models
 class Person(models.Model):
     Type = [("M", "Merchant"),
             ("C", "Customer"),
-            ("A", "School Admin")]
+            ("A", "School Admin"),
+            ("D", "Delivery Personnel"),
+            ("T", "Courier")]
     username = models.CharField(max_length=50, null=False)
     password = models.CharField(max_length=50, null=False)
     name = models.CharField(max_length=50, null=False)
