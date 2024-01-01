@@ -1,23 +1,62 @@
-<!-- courier_order_form.html in your app templates directory -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courier Order Form</title>
-    <!-- Add any additional styles or links you may need -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/registrations/registration-7/assets/css/registration-7.css">
+    <title>Add Delivery</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+
+        }
+
+        .form-container {
+            width: 70%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .btn {
+        background-color: #0D6EFD; /* Choose your desired color */
+        color: #fff;
+        padding: 12px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Courier Order Form</h2>
-        <form method="post" action="{% url 'add-delivery' %}">
-            {% csrf_token %}
+        <div class="form-container ">
+            <h2 class="text-center">Add Delivery</h2>
+            <form method="post" action="{% url 'add-delivery' %}">
+                {% csrf_token %}
 
-            <!-- Display form fields -->
-            {{ form.as_p }}
+                <!-- Display form fields -->
+                {{ form.as_p }}
 
-            <button type="submit">Submit</button>
-        </form>
+                <button class="btn" type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
