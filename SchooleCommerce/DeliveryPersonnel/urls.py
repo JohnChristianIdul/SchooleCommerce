@@ -14,5 +14,5 @@ urlpatterns = [
     path('t-home/<int:delivery_personnel_id>/', Thome.as_view(), name='t-home-with-id'),
     path('courierDelivery/<int:delivery_personnel_id>/', CourierDelivery.as_view(), name='courier-delivery'),
     path('delete-delivery/<int:delivery_personnel_id>/', DeleteDeliveryPersonnel.as_view(), name='delete-delivery'),
-
+    path('orders-delivered/', DeliveredOrders.as_view(), name='orders-delivered'),
 ]

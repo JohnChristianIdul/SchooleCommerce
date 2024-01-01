@@ -211,6 +211,42 @@ class Dhome(View):
         context = {'delivery_orders_data': delivery_orders_data, 'username': username}
         return render(request, self.template_name, context)
 
+class DeliveredOrders(View):
+    template_name = 'deliveredOrders.html'
+
+    def get(self, request):
+        # Get the username from the session
+        username = request.session.get('username')
+        print(username)
+
+        # Call the stored procedure to get the delivery_personnel_ID
+        try:
+            with connection.cursor() as cursor:
+                args = [username]
+                cursor.callproc('GetDeliveryPersonnelID', args)
+
+                # Fetch the result set directly
+                result = cursor.fetchone()
+
+                if result:
+                    # The result is not None, so it should be safe to access the delivery_personnel_id
+                    delivery_personnel_id = result[0]
+                    print(delivery_personnel_id)
+
+            # Open a new cursor block for the second stored procedure call
+            with connection.cursor() as cursor:
+                # Call another stored procedure to get delivered orders
+                cursor.callproc('GetDeliveredOrders', [delivery_personnel_id])
+                delivered_orders_data = cursor.fetchall()
+
+        except Exception as e:
+            # Handle database errors or other exceptions
+            print(f"An error occurred: {e}")
+            delivered_orders_data = []
+
+        # Pass 'username' and 'delivered_orders_data' to the template context
+        context = {'delivered_orders_data': delivered_orders_data, 'username': username}
+        return render(request, self.template_name, context)
 
 
 
