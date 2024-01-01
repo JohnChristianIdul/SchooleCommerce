@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- ... (existing head content) ... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/registrations/registration-7/assets/css/registration-7.css">
@@ -65,32 +66,43 @@
             <h3>Hello, {{ username }}!</h3>
         </header>
 
+        <nav>
+            <ul>
+                <li><a href="{% url 'd-home' %}">Orders to Deliver</a></li>
+                <li><a href="{% url 'orders-delivered' %}">Orders Delivered</a></li>
+                <!-- Add more tabs as needed -->
+            </ul>
+        </nav>
+
         <main>
 
-            <h2>Orders to deliver:</h2>
-            <a href="{% url 'delivery-login' %}" class="link-primary text-decoration-none">Logout</a>
+            <!-- Tab: Orders to Deliver -->
+            <div id="orders-to-deliver" class="tab-content">
+                <h2>Orders to deliver:</h2>
+                <a href="{% url 'delivery-login' %}" class="link-primary text-decoration-none">Logout</a>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Delivery Date</th>
-                        <th>Date Delivered</th>
-                        <th>Order Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Display delivery orders data in the table -->
-                    {% for order in delivery_orders_data %}
+                <table>
+                    <thead>
                         <tr>
-                            <td><a href="{% url 'update-ds' order.0 %}">{{ order.0 }}</a></td>
-                            <td>{{ order.1 }}</td>
-                            <td>{{ order.2 }}</td>
-                            <td>{{ order.3 }}</td>
+                            <th>Order ID</th>
+                            <th>Delivery Date</th>
+                            <th>Delivery Status</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <!-- Display delivery orders data in the table -->
+                        {% for order in delivery_orders_data %}
+                            <tr>
+                                <td><a href="{% url 'update-ds' order.0 %}">{{ order.0 }}</a></td>
+                                <td>{{ order.1 }}</td>
+                                <td>{{ order.2 }}</td>
+
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
         </main>
     </div>
 </body>
